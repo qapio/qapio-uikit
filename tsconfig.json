@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "declaration": true,
+    "moduleResolution": "bundler",
+    "composite": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
