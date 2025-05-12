@@ -32,3 +32,5 @@ export { SectionCards } from "./section-cards";
 export { SiteHeader } from "./site-header";
 export { CollapsiblePanel } from "./collapsible-panel";
 export { CollapsibleBottomPanel } from "./collapsible-bottom-panel";
+export * from "./ui/collapsible";
+export * from "./editor/CodeEditor";
