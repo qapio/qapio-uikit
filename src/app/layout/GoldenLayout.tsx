@@ -13,6 +13,7 @@ import {
     CollapsibleBottomPanel
 } from "@/components";
 import {MemoryRouter, Outlet, Route, Routes, useLocation} from 'react-router';
+import {ResolveComponent} from "@/utils/ResolveComponent";
 
 const RouterListener = () => {
     const location = useLocation();
@@ -52,9 +53,9 @@ export const Layout = ({data}) => {
                 <Route path={"/"} element={<Content data={data}/>}>
                     {data.navMain.items.map((t, idx) => {
                         return <Route key={idx} path={t.url}>
-                            <Route index={true} element={t.component}/>
+                            <Route index={true} element={ResolveComponent(t.component)}/>
                             {t.items?.map((r, idx) => {
-                                return <Route key={idx} path={r.url} element={r.component}/>
+                                return <Route key={idx} path={r.url} element={ResolveComponent(r.component)}/>
                             })}
                         </Route>
                     })}
@@ -67,7 +68,6 @@ export const Layout = ({data}) => {
 export const Content = ({data}) => {
     const [isRightPanelOpen, setIsRightPanelOpen] = useState(true)
 
-    console.log("bi er her")
     // Function to handle right panel state changes
     const handleRightPanelStateChange = (isOpen: boolean) => {
         setIsRightPanelOpen(isOpen)
@@ -85,15 +85,15 @@ export const Content = ({data}) => {
                 <div className="flex-1 min-w-0 flex flex-col ">
                     {/* Scrollable content area */}
                     <div className="flex-1 overflow-auto custom-scrollbar">
-                        <div className="@container/main py-4 md:py-6">
+                        <div className="@container/main py-4 md:py-6 h-full">
 
                             <Outlet/>
 
                         </div>
                     </div>
-                    <CollapsibleBottomPanel rightPanelOpen={isRightPanelOpen} />
+                    <CollapsibleBottomPanel data={data} rightPanelOpen={isRightPanelOpen} />
                 </div>
-                <CollapsiblePanel onStateChange={handleRightPanelStateChange} />
+                <CollapsiblePanel data={data} onStateChange={handleRightPanelStateChange} />
             </div>
         </SidebarInset>
     </SidebarProvider>

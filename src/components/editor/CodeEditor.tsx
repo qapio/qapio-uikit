@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 import { OneDarkProTheme} from "./OneDarkProTheme.ts";
-
+import {connect, combineLatestObject} from "@qapio/qapi-reactjs";
 
 export const CodeEditor = ({ value, file, height, options, theme}) => {
 
@@ -12,6 +12,11 @@ export const CodeEditor = ({ value, file, height, options, theme}) => {
             OneDarkProTheme(monaco);
         }}
         path={file}
-        value={value}
+        value={typeof value == "string" ? value : value.toString()}
     />;
 };
+
+export const ResourceEditor = connect((qapi, {path, endpoint}) => {
+    return combineLatestObject({value: qapi.Source(`${endpoint}.FileSystem.ReadAllText('${path}')`), file: path})
+
+})(CodeEditor)

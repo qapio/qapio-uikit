@@ -4,18 +4,36 @@ import {
 } from "@/components";
 import {cn} from "@/lib";
 import { ChevronUpIcon, BarChart2Icon } from "lucide-react"
+import {useLocation} from "react-router";
+import {useEffect} from "react";
+import {ResolveComponent} from "@/utils/ResolveComponent";
+import {pluckFromTree} from "@/utils/SearchTreeByPath";
 
 interface BottomPanelProps {
     rightPanelOpen: boolean
 }
 
-export function CollapsibleBottomPanel({ rightPanelOpen }: BottomPanelProps) {
+export function CollapsibleBottomPanel({ rightPanelOpen, data }: BottomPanelProps) {
     const [isOpen, setIsOpen] = React.useState(true)
+    const location = useLocation();
+    const [content, setContent] = React.useState(null);
+
+
+
+
+    useEffect(() => {
+        console.log('Navigation occurred at sidebar:', location.pathname);
+
+        const value = pluckFromTree(data.navMain.items, location.pathname, "url");
+
+        setContent(ResolveComponent(value?.panels?.terminal));
+
+    }, [location]);
 
     // Calculate panel height based on state
     const panelHeight = isOpen ? "h-64" : "h-10"
 
-    return (
+    return content && (
         <div className={cn("border-t bg-background transition-all duration-300 ease-in-out flex-shrink-0", panelHeight)}>
             {/* Panel header with toggle button */}
             <div className="flex items-center justify-between px-4 h-10 border-b bg-muted/30">
@@ -31,8 +49,8 @@ export function CollapsibleBottomPanel({ rightPanelOpen }: BottomPanelProps) {
 
             {/* Panel content with independent scrolling */}
             <div className={cn("h-[calc(100%-2.5rem)] overflow-auto custom-scrollbar", isOpen ? "block" : "hidden")}>
-                <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                    content
+                <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 h-full">
+                    {content}
                 </div>
             </div>
         </div>

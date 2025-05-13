@@ -2191,7 +2191,7 @@ export const OneDarkProTheme = (monaco: any) => {
             "diffEditor.insertedTextBackground": "#00809b33",
             "dropdown.background": "#21252b",
             "dropdown.border": "#21252b",
-            "editor.background": "#282c34",
+            "editor.background": "#0a0a0a",
             "editor.findMatchBackground": "#d19a6644",
             "editor.findMatchBorder": "#ffffff5a",
             "editor.findMatchHighlightBackground": "#ffffff22",

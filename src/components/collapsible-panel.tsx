@@ -2,21 +2,43 @@ import {useIsMobile} from "@/hooks";
 import {Button} from "@/components/ui/button";
 import {PanelRightIcon} from "lucide-react";
 import {cn} from "@/lib";
+import {useLocation} from "react-router";
+import {useEffect} from "react";
+import * as React from "react";
+import {ResolveComponent} from "@/utils/ResolveComponent";
+import {pluckFromTree} from "@/utils/SearchTreeByPath";
 
 interface CollapsiblePanelProps {
     onStateChange?: (isOpen: boolean) => void
 }
-export function CollapsiblePanel() {
+
+
+export function CollapsiblePanel({data}) {
     const [isOpen, setIsOpen] = React.useState(true)
     const isMobile = useIsMobile()
     const panelRef = React.useRef<HTMLDivElement>(null)
+    const location = useLocation();
+    const [content, setContent] = React.useState(null);
+
 
     // Hide panel completely on mobile
     if (isMobile) {
         return null
     }
 
-    return (
+
+
+    useEffect(() => {
+        console.log('Navigation occurred at sidebar:', location.pathname);
+
+        const value = pluckFromTree(data.navMain.items, location.pathname, "url");
+
+        setContent(ResolveComponent(value?.panels?.utilities));
+
+    }, [location]);
+
+
+    return content && (
         <div className={"relative"}>
             <Button
                 variant="ghost"
@@ -42,21 +64,7 @@ export function CollapsiblePanel() {
                     {/* This div is the scrollable container */}
                     <div className="h-fit overflow-y-auto" style={{ width: isOpen ? "20rem" : "h-fit" }}>
                         <div className="p-4">
-                            {/* Panel content */}
-                            <div className="flex flex-col gap-4">
-                                <h3 className="text-lg font-semibold">Panel Content</h3>
-                                <p className="text-muted-foreground">This panel scrolls independently from the main content.</p>
-
-                                {/* Sample content to demonstrate scrolling */}
-                                {Array.from({ length: 15 }).map((_, i) => (
-                                    <div key={i} className="rounded-lg border p-4 mb-4">
-                                        <h4 className="font-medium">Item {i + 1}</h4>
-                                        <p className="text-sm text-muted-foreground">
-                                            This is a sample item to demonstrate independent scrolling.
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
+                            {content}
                         </div>
                     </div>
                 </div>
