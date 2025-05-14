@@ -16,7 +16,7 @@ export const CodeEditor = ({ value, file, height, options, theme}) => {
     />;
 };
 
-export const ResourceEditor = connect((qapi, {path, endpoint}) => {
+export const ResourceEditor =  connect((qapi, {path, endpoint}) => {
     return combineLatestObject({value: qapi.Source(`${endpoint}.FileSystem.ReadAllText('${path}')`), file: path})
 
 })(CodeEditor)

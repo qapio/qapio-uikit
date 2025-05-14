@@ -1,0 +1,103 @@
+import * as React from "react";
+import {ResourceEditor} from "@/components";
+
+
+const files = [{path: "raedme.md"}, {path: "index.tsx"}]
+
+const Files = () => {
+    return <div data-sidebar="group" className="relative flex w-full min-w-0 flex-col p-2">
+        <div data-sidebar="group-content" className="w-full text-sm">
+            <ul data-sidebar="menu" className="flex w-full min-w-0 flex-col gap-1">
+                {files.map((file, idx) => {
+                    return <li key={idx} data-sidebar="menu-item" className="group/menu-item relative">
+                        <button data-sidebar="menu-button" data-size="default" data-active="false"
+                                className="peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&amp;>span:last-child]:truncate [&amp;>svg]:size-4 [&amp;>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8 text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                                 strokeLinecap="round" strokeLinejoin="round"
+                                 className="lucide lucide-file">
+                                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                            </svg>
+                            {file.path}
+                        </button>
+                        <div data-sidebar="menu-badge"
+                             className="pointer-events-none absolute right-1 flex h-5 min-w-5 select-none items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[active=true]/menu-button:text-sidebar-accent-foreground peer-data-[size=sm]/menu-button:top-1 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 group-data-[collapsible=icon]:hidden">M
+                        </div>
+                    </li>
+                })}
+            </ul>
+        </div>
+    </div>;
+}
+
+export const WorkspaceEditor = () => (
+    <div
+        className="mr-[14px] flex overflow-hidden rounded-xl bg-zinc-950 text-white group-data-[view=preview]/block-view-wrapper:hidden md:h-[--height]"
+    >
+        <div className="w-[280px]">
+            <div
+                className="group/sidebar-wrapper min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar flex !min-h-full flex-col"
+                style={{
+                    "--sidebar-width": "16rem",
+                    "--sidebar-width-icon": "3rem",
+                }}
+            >
+                <div className="flex h-full flex-col w-full flex-1 border-r border-zinc-700 bg-zinc-900 text-white">
+                    <div
+                        data-sidebar="group-label"
+                        className="flex shrink-0 items-center font-medium outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 h-12 rounded-none border-b border-zinc-700 px-4 text-sm text-white"
+                    >
+                        Files
+                    </div>
+                    <Files/>
+                </div>
+            </div>
+        </div>
+
+        <div className="flex min-w-0 flex-1 flex-col">
+            <div className="flex h-12 items-center gap-2 border-b border-zinc-700 bg-zinc-900 px-4 text-sm font-medium">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-file size-4"
+                >
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+                    <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+                </svg>
+                app/dashboard/page.tsx
+                <div className="ml-auto flex items-center gap-2">
+                    <button
+                        className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-7 w-7 shrink-0 rounded-lg p-0 hover:bg-zinc-700 hover:text-white focus:bg-zinc-700 focus:text-white focus-visible:bg-zinc-700 focus-visible:text-white active:bg-zinc-700 active:text-white data-[active=true]:bg-zinc-700 data-[active=true]:text-white [&>svg]:size-3">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-clipboard"
+                        >
+                            <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div className={"h-[400px]"}>
+                <ResourceEditor endpoint={"UiKit"} path={"Workspace.pkl"}/>
+            </div>
+        </div>
+    </div>
+
+)

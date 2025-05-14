@@ -10,7 +10,7 @@ import {
     SidebarProvider,
     SidebarInset,
     CollapsiblePanel,
-    CollapsibleBottomPanel
+    CollapsibleBottomPanel, WorkspaceEditor
 } from "@/components";
 import {MemoryRouter, Outlet, Route, Routes, useLocation} from 'react-router';
 import {ResolveComponent} from "@/utils/ResolveComponent";
@@ -42,6 +42,7 @@ export const Layout = ({data}) => {
     }, []);
 
 
+    console.log(data)
     if (!data) {
         return
     }
@@ -52,9 +53,25 @@ export const Layout = ({data}) => {
             <Routes>
                 <Route path={"/"} element={<Content data={data}/>}>
                     {data.navMain.items.map((t, idx) => {
-                        return <Route key={idx} path={t.url}>
-                            <Route index={true} element={ResolveComponent(t.component)}/>
-                            {t.items?.map((r, idx) => {
+
+                        const clone = {...t};
+
+                        if (clone.items && !Array.isArray(clone.items)) {
+                            clone.items = [{
+                                title: "Ui",
+                                url: "customers2",
+                                component: <WorkspaceEditor/>,
+                            },
+                                {
+                                    title: "Qapi",
+                                    url: "customers22",
+                                    component: <div>asdf</div>
+                                }]
+                        }
+
+                        return <Route key={idx} path={clone.url}>
+                            <Route index={true} element={ResolveComponent(clone.component)}/>
+                            {clone.items?.map((r, idx) => {
                                 return <Route key={idx} path={r.url} element={ResolveComponent(r.component)}/>
                             })}
                         </Route>

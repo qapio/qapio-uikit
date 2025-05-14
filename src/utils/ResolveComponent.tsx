@@ -33,7 +33,7 @@ export const ResolveComponent = (value: any) => {
 
 
     if (value.type == "ResourceEditor") {
-        return <ResourceEditor {...value.props}/>
+        return <ResourceEditor key={JSON.stringify(value.props)} {...value.props}/>
     }
 
     return value;

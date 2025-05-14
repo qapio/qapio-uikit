@@ -34,3 +34,4 @@ export { CollapsiblePanel } from "./collapsible-panel";
 export { CollapsibleBottomPanel } from "./collapsible-bottom-panel";
 export * from "./ui/collapsible";
 export * from "./editor/CodeEditor";
+export * from "./editor/WorkspaceEditor";
