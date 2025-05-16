@@ -19,26 +19,13 @@ import {
 } from "@/components/ui/sidebar"
 import {NavLink, Link} from "react-router-dom";
 import {connect} from "@qapio/qapi-reactjs";
-import {WorkspaceEditor} from "@/components/editor/WorkspaceEditor";
 
 
 const SubMenu = () => connect((qapi, {item}) => {
 
   console.log("ØDjjjHBDÆ!", item)
 
-  if (typeof item.items == "string") {
-    console.log("DDB")
-    return {item: {...item, items: [ {
-        title: "Ui",
-        url: "customers2",
-        component: <WorkspaceEditor/>,
-      },
-        {
-          title: "Qapi",
-          url: "customers22",
-          component: <div>asdf</div>
-        }]}}
-  }
+
 
   console.log(item)
   return {item};

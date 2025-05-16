@@ -3,9 +3,9 @@ import {Button} from "@/components/ui/button";
 import {PanelRightIcon} from "lucide-react";
 import {cn} from "@/lib";
 import {useLocation} from "react-router";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
 import * as React from "react";
-import {ResolveComponent} from "@/utils/ResolveComponent";
+import {ComponentContext, ResolveComponent} from "@/utils/ResolveComponent";
 import {pluckFromTree} from "@/utils/SearchTreeByPath";
 
 interface CollapsiblePanelProps {
@@ -20,6 +20,7 @@ export function CollapsiblePanel({data}) {
     const location = useLocation();
     const [content, setContent] = React.useState(null);
 
+    const componentMap = useContext(ComponentContext);
 
     // Hide panel completely on mobile
     if (isMobile) {
@@ -33,7 +34,7 @@ export function CollapsiblePanel({data}) {
 
         const value = pluckFromTree(data.navMain.items, location.pathname, "url");
 
-        setContent(ResolveComponent(value?.panels?.utilities));
+        setContent(ResolveComponent(value?.panels?.utilities, componentMap));
 
     }, [location]);
 

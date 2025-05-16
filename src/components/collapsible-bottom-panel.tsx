@@ -5,8 +5,8 @@ import {
 import {cn} from "@/lib";
 import { ChevronUpIcon, BarChart2Icon } from "lucide-react"
 import {useLocation} from "react-router";
-import {useEffect} from "react";
-import {ResolveComponent} from "@/utils/ResolveComponent";
+import {useContext, useEffect} from "react";
+import {ComponentContext, ResolveComponent} from "@/utils/ResolveComponent";
 import {pluckFromTree} from "@/utils/SearchTreeByPath";
 
 interface BottomPanelProps {
@@ -18,6 +18,7 @@ export function CollapsibleBottomPanel({ rightPanelOpen, data }: BottomPanelProp
     const location = useLocation();
     const [content, setContent] = React.useState(null);
 
+    const componentMap = useContext(ComponentContext);
 
 
 
@@ -26,7 +27,7 @@ export function CollapsibleBottomPanel({ rightPanelOpen, data }: BottomPanelProp
 
         const value = pluckFromTree(data.navMain.items, location.pathname, "url");
 
-        setContent(ResolveComponent(value?.panels?.terminal));
+        setContent(ResolveComponent(value?.panels?.terminal, componentMap));
 
     }, [location]);
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
 import {
     AppSidebar,
     ChartAreaInteractive,
@@ -10,10 +10,11 @@ import {
     SidebarProvider,
     SidebarInset,
     CollapsiblePanel,
-    CollapsibleBottomPanel, WorkspaceEditor
+    CollapsibleBottomPanel
 } from "@/components";
 import {MemoryRouter, Outlet, Route, Routes, useLocation} from 'react-router';
-import {ResolveComponent} from "@/utils/ResolveComponent";
+import {ComponentContext, ResolveComponent} from "@/utils/ResolveComponent";
+import {connect} from "@qapio/qapi-reactjs";
 
 const RouterListener = () => {
     const location = useLocation();
@@ -30,6 +31,8 @@ const RouterListener = () => {
     return null;
 };
 
+
+
 export const Layout = ({data}) => {
 
     const [currentPath, setCurrentPath] = useState(sessionStorage.getItem('currentPath22') ?? "/");
@@ -41,14 +44,18 @@ export const Layout = ({data}) => {
         }
     }, []);
 
+    const componentMap = useContext(ComponentContext);
 
-    console.log(data)
+
+    console.log(data, componentMap, "BRAVP")
     if (!data) {
         return
     }
 
+
+
     return (
-        <div className={"dark"}><MemoryRouter initialEntries={[currentPath]}>
+       <div className={"dark"}><MemoryRouter initialEntries={[currentPath]}>
             <RouterListener/>
             <Routes>
                 <Route path={"/"} element={<Content data={data}/>}>
@@ -56,23 +63,10 @@ export const Layout = ({data}) => {
 
                         const clone = {...t};
 
-                        if (clone.items && !Array.isArray(clone.items)) {
-                            clone.items = [{
-                                title: "Ui",
-                                url: "customers2",
-                                component: <WorkspaceEditor/>,
-                            },
-                                {
-                                    title: "Qapi",
-                                    url: "customers22",
-                                    component: <div>asdf</div>
-                                }]
-                        }
-
                         return <Route key={idx} path={clone.url}>
-                            <Route index={true} element={ResolveComponent(clone.component)}/>
+                            <Route index={true} element={ResolveComponent(clone.component, componentMap)}/>
                             {clone.items?.map((r, idx) => {
-                                return <Route key={idx} path={r.url} element={ResolveComponent(r.component)}/>
+                                return <Route key={idx} path={r.url} element={ResolveComponent(r.component, componentMap)}/>
                             })}
                         </Route>
                     })}
