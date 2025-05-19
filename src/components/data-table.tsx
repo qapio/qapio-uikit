@@ -18,20 +18,19 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import {
-  IconChevronDown,
-  IconChevronLeft,
-  IconChevronRight,
-  IconChevronsLeft,
-  IconChevronsRight,
-  IconCircleCheckFilled,
-  IconDotsVertical,
-  IconGripVertical,
-  IconLayoutColumns,
-  IconLoader,
-  IconPlus,
-  IconTrendingUp,
-} from "@tabler/icons-react"
+import IconChevronDown from "@tabler/icons-react/dist/esm/icons/IconChevronDown.mjs";
+import IconChevronLeft from "@tabler/icons-react/dist/esm/icons/IconChevronLeft.mjs";
+import IconChevronRight from "@tabler/icons-react/dist/esm/icons/IconChevronRight.mjs";
+import IconChevronsLeft from "@tabler/icons-react/dist/esm/icons/IconChevronsLeft.mjs";
+import IconChevronsRight from "@tabler/icons-react/dist/esm/icons/IconChevronsRight.mjs";
+import IconCircleCheckFilled from "@tabler/icons-react/dist/esm/icons/IconCircleCheckFilled.mjs";
+import IconDotsVertical from "@tabler/icons-react/dist/esm/icons/IconDotsVertical.mjs";
+import IconGripVertical from "@tabler/icons-react/dist/esm/icons/IconGripVertical.mjs";
+import IconLayoutColumns from "@tabler/icons-react/dist/esm/icons/IconLayoutColumns.mjs";
+import IconLoader from "@tabler/icons-react/dist/esm/icons/IconLoader.mjs";
+import IconPlus from "@tabler/icons-react/dist/esm/icons/IconPlus.mjs";
+import IconTrendingUp from "@tabler/icons-react/dist/esm/icons/IconTrendingUp.mjs";
+
 import {
   ColumnDef,
   ColumnFiltersState,

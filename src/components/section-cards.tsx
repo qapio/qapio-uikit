@@ -1,4 +1,6 @@
-import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react"
+import IconTrendingDown from "@tabler/icons-react/dist/esm/icons/IconTrendingDown.mjs";
+import IconTrendingUp from "@tabler/icons-react/dist/esm/icons/IconTrendingUp.mjs";
+
 
 import { Badge } from "@/components/ui/badge"
 import {

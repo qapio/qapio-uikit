@@ -1,10 +1,8 @@
-import {
-  IconCreditCard,
-  IconDotsVertical,
-  IconLogout,
-  IconNotification,
-  IconUserCircle,
-} from "@tabler/icons-react"
+import IconCreditCard from "@tabler/icons-react/dist/esm/icons/IconCreditCard.mjs";
+import IconDotsVertical from "@tabler/icons-react/dist/esm/icons/IconDotsVertical.mjs";
+import IconLogout from "@tabler/icons-react/dist/esm/icons/IconLogout.mjs";
+import IconNotification from "@tabler/icons-react/dist/esm/icons/IconNotification.mjs";
+import IconUserCircle from "@tabler/icons-react/dist/esm/icons/IconUserCircle.mjs";
 
 import {
   Avatar,

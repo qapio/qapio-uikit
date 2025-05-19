@@ -21,13 +21,8 @@ import {NavLink, Link} from "react-router-dom";
 import {connect} from "@qapio/qapi-reactjs";
 
 
-const SubMenu = () => connect((qapi, {item}) => {
+const SubMenu = connect((qapi, {item}) => {
 
-  console.log("ØDjjjHBDÆ!", item)
-
-
-
-  console.log(item)
   return {item};
 
 })(({item}) => {
@@ -83,9 +78,7 @@ export function NavMain({
     <SidebarGroup>
       {title && <SidebarGroupLabel>{title}</SidebarGroupLabel>}
       <SidebarMenu>
-        {items.map((item) => {
-
-          const Sub = SubMenu();
+        {items.map((item, idx) => {
 
           return (
               <Collapsible
@@ -94,7 +87,7 @@ export function NavMain({
                   defaultOpen={item.isActive}
                   className="group/collapsible"
               >
-                <Sub item={item}/>
+                <SubMenu key={idx} item={item}/>
               </Collapsible>
           );
         })}

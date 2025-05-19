@@ -21,7 +21,6 @@ export function CollapsibleBottomPanel({ rightPanelOpen, data }: BottomPanelProp
     const componentMap = useContext(ComponentContext);
 
 
-
     useEffect(() => {
         console.log('Navigation occurred at sidebar:', location.pathname);
 
@@ -39,8 +38,8 @@ export function CollapsibleBottomPanel({ rightPanelOpen, data }: BottomPanelProp
             {/* Panel header with toggle button */}
             <div className="flex items-center justify-between px-4 h-10 border-b bg-muted/30">
                 <div className="flex items-center gap-2">
-                    <BarChart2Icon className="h-4 w-4" />
-                    <h3 className="text-sm font-medium">Analytics Dashboard</h3>
+                    {/*<BarChart2Icon className="h-4 w-4" />*/}
+                    <h3 className="text-sm font-medium">Terminal</h3>
                 </div>
                 <Button variant="ghost" size="sm" onClick={() => setIsOpen(!isOpen)} className="h-6 w-6 p-0">
                     <ChevronUpIcon className={cn("h-4 w-4 transition-transform", isOpen ? "" : "rotate-180")} />

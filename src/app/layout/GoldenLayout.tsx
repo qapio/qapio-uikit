@@ -83,6 +83,7 @@ export const Content = ({data}) => {
     const handleRightPanelStateChange = (isOpen: boolean) => {
         setIsRightPanelOpen(isOpen)
     }
+
     return(
     <SidebarProvider>
         <AppSidebar data={data} variant="inset" />
@@ -96,7 +97,7 @@ export const Content = ({data}) => {
                 <div className="flex-1 min-w-0 flex flex-col ">
                     {/* Scrollable content area */}
                     <div className="flex-1 overflow-auto custom-scrollbar">
-                        <div className="@container/main py-4 md:py-6 h-full">
+                        <div className="@container/main h-full">
 
                             <Outlet/>
 

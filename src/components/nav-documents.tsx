@@ -1,12 +1,10 @@
 "use client"
 
-import {
-  IconDots,
-  IconFolder,
-  IconShare3,
-  IconTrash,
-  type Icon,
-} from "@tabler/icons-react"
+
+import IconDots from "@tabler/icons-react/dist/esm/icons/IconDots.mjs";
+import IconFolder from "@tabler/icons-react/dist/esm/icons/IconFolder.mjs";
+import IconShare3 from "@tabler/icons-react/dist/esm/icons/IconShare3.mjs";
+import IconTrash from "@tabler/icons-react/dist/esm/icons/IconTrash.mjs";
 
 import {
   DropdownMenu,
@@ -31,7 +29,7 @@ export function NavDocuments({
   items: {
     name: string
     url: string
-    icon: Icon
+    icon: any
   }[]
 }) {
   const { isMobile } = useSidebar()

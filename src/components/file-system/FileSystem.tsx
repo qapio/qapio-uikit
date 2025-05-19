@@ -19,10 +19,9 @@ export const QapFileSystem = ({endpoint}) => {
         return;
     }
 
-    console.log(files, "BIFF", selectedFile, endpoint);
     return (
         <div
-            className="mr-[14px] flex overflow-hidden rounded-xl bg-zinc-950 text-white group-data-[view=preview]/block-view-wrapper:hidden md:h-[--height]"
+            className=" flex h-full overflow-hidden bg-background text-white group-data-[view=preview]/block-view-wrapper:hidden"
         >
             <div className="w-[280px]">
                 <div
@@ -32,7 +31,7 @@ export const QapFileSystem = ({endpoint}) => {
                         "--sidebar-width-icon": "3rem",
                     }}
                 >
-                    <div className="flex h-full flex-col w-full flex-1 border-r border-zinc-700 bg-zinc-900 text-white">
+                    <div className="flex h-full flex-col w-full flex-1 border-r border-zinc-700 bg-background text-white">
                         <div
                             data-sidebar="group-label"
                             className="flex shrink-0 items-center font-medium outline-none ring-sidebar-ring transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 h-12 rounded-none border-b border-zinc-700 px-4 text-sm text-white"
@@ -56,7 +55,7 @@ export const QapFileSystem = ({endpoint}) => {
                                                 </svg>                                                {file.path}
                                             </button>
                                             <div data-sidebar="menu-badge"
-                                                 className="pointer-events-none absolute right-1 flex h-5 min-w-5 select-none items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[active=true]/menu-button:text-sidebar-accent-foreground peer-data-[size=sm]/menu-button:top-1 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 group-data-[collapsible=icon]:hidden">M
+                                                 className="pointer-events-none absolute right-1 flex h-5 min-w-5 select-none items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums text-sidebar-foreground peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[active=true]/menu-button:text-sidebar-accent-foreground peer-data-[size=sm]/menu-button:top-1 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 group-data-[collapsible=icon]:hidden">
                                             </div>
                                         </li>
                                     })}
@@ -69,7 +68,7 @@ export const QapFileSystem = ({endpoint}) => {
 
             <div className="flex min-w-0 flex-1 flex-col">
                 <div
-                    className="flex h-12 items-center gap-2 border-b border-zinc-700 bg-zinc-900 px-4 text-sm font-medium">
+                    className="flex h-12 shrink-0 items-center gap-2 border-b border-zinc-700 bg-background px-4 text-sm font-medium">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -107,8 +106,8 @@ export const QapFileSystem = ({endpoint}) => {
                         </button>
                     </div>
                 </div>
-                <div className={"h-[400px]"}>
-                    {selectedFile && <ResourceEditor key={selectedFile} endpoint={endpoint} path={selectedFile}/>}
+                <div className={"flex grow-1"}>
+                   {selectedFile && <ResourceEditor key={selectedFile} endpoint={endpoint} path={selectedFile}/>}
                 </div>
             </div>
         </div>
