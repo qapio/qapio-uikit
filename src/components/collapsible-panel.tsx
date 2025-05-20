@@ -57,14 +57,11 @@ export function CollapsiblePanel({data}) {
                     ref={panelRef}
                     className={cn(
                         "h-full border-l bg-background transition-all duration-300 ease-in-out",
-                        isOpen ? "w-80" : "w-0 opacity-0 overflow-hidden",
+                        isOpen ? "w-[500px]" : "w-0 opacity-0 overflow-hidden",
                     )}
                 >
-                    {/* This div is the scrollable container */}
-                    <div className="h-fit overflow-y-auto" style={{ width: isOpen ? "20rem" : "h-fit" }}>
-                        <div className="p-4">
+                    <div className="h-fit overflow-y-auto p-4" >
                             {content}
-                        </div>
                     </div>
                 </div>
             </div>

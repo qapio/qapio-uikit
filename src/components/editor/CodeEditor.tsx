@@ -7,8 +7,16 @@ export const CodeEditor = ({ value, file, height, options, theme}) => {
     const path = file?.endsWith(".tsx") ? "file.jsx" : file;
 
     return value && <Editor
-        options={options}
-        height={height ?? "100%"}
+        options={{
+            padding: {
+                top: 16,
+                right: 16,
+                bottom: 16,
+                left: 16,
+                ...options?.padding,
+            },
+            ...options,
+        }}        height={height ?? "100%"}
         theme={theme ?? "OneDarkPro"}
         beforeMount={(monaco) => {
             OneDarkProTheme(monaco);

@@ -68,12 +68,12 @@ export const QapFileSystem = ({endpoint}) => {
                     className="flex h-12 shrink-0 items-center gap-2 border-b border-zinc-700 bg-background px-4 text-sm font-medium">
                     <File className="size-4 shrink-0" />
                     {selectedFile}
-                    <div className="ml-auto flex items-center gap-2">
+                    {/*<div className="ml-auto flex items-center gap-2">
                         <button
                             className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-7 w-7 shrink-0 rounded-lg p-0 hover:bg-zinc-700 hover:text-white focus:bg-zinc-700 focus:text-white focus-visible:bg-zinc-700 focus-visible:text-white active:bg-zinc-700 active:text-white data-[active=true]:bg-zinc-700 data-[active=true]:text-white [&>svg]:size-3">
                             <Clipboard className="size-4 shrink-0" />
                         </button>
-                    </div>
+                    </div>*/}
                 </div>
                 <div className={"flex grow-1"}>
                    {selectedFile && <ResourceEditor key={selectedFile} endpoint={endpoint} path={selectedFile}/>}
