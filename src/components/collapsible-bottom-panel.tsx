@@ -22,7 +22,7 @@ export function CollapsibleBottomPanel({ rightPanelOpen, data }: BottomPanelProp
 
 
     useEffect(() => {
-        console.log('Navigation occurred at sidebar:', location.pathname);
+        // console.log('Navigation occurred at sidebar:', location.pathname);
 
         const value = pluckFromTree(data.navMain.items, location.pathname, "url");
 

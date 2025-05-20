@@ -2,11 +2,7 @@ import * as React from "react";
 import {useState, useEffect, useContext} from "react";
 import {
     AppSidebar,
-    ChartAreaInteractive,
-    DataTable,
-    SectionCards,
     SiteHeader,
-    Button,
     SidebarProvider,
     SidebarInset,
     CollapsiblePanel,
@@ -46,13 +42,9 @@ export const Layout = ({data}) => {
 
     const componentMap = useContext(ComponentContext);
 
-
-    console.log(data, componentMap, "BRAVP")
     if (!data) {
         return
     }
-
-
 
     return (
        <div className={"dark"}><MemoryRouter initialEntries={[currentPath]}>
@@ -87,12 +79,12 @@ export const Content = ({data}) => {
     return(
     <SidebarProvider>
         <AppSidebar data={data} variant="inset" />
-        <SidebarInset className="flex flex-col !h-[calc(100vh_-_var(--spacing)*4)]">
+        <SidebarInset className="flex flex-col !h-[calc(100vh_-_var(--spacing)*4)] overflow-hidden">
 
             <SiteHeader className="flex-shrink-0" />
 
             {/* Main content container with flex layout */}
-            <div className="flex flex-1 overflow-hidden ">
+            <div className="flex flex-1 overflow-hidden">
                 {/* Left content area with independent scrolling and bottom panel */}
                 <div className="flex-1 min-w-0 flex flex-col ">
                     {/* Scrollable content area */}

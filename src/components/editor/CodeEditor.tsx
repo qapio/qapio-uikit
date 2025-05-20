@@ -4,6 +4,8 @@ import {connect, combineLatestObject} from "@qapio/qapi-reactjs";
 
 export const CodeEditor = ({ value, file, height, options, theme}) => {
 
+    const path = file?.endsWith(".tsx") ? "file.jsx" : file;
+
     return value && <Editor
         options={options}
         height={height ?? "100%"}
@@ -11,7 +13,7 @@ export const CodeEditor = ({ value, file, height, options, theme}) => {
         beforeMount={(monaco) => {
             OneDarkProTheme(monaco);
         }}
-        path={file}
+        path={path}
         value={typeof value == "string" ? value : value.toString()}
     />;
 };

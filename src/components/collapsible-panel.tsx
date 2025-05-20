@@ -27,10 +27,8 @@ export function CollapsiblePanel({data}) {
         return null
     }
 
-
-
     useEffect(() => {
-        console.log('Navigation occurred at sidebar:', location.pathname);
+        // console.log('Navigation occurred at sidebar:', location.pathname);
 
         const value = pluckFromTree(data.navMain.items, location.pathname, "url");
 
