@@ -2,6 +2,8 @@ import {QapFileSystem, ResourceEditor} from "@/components";
 import { createContext, useContext } from 'react';
 
 import styled from 'styled-components';
+import {Story} from "@/components/story/Story";
+import {Steps} from "@/components/story/Steps";
 
 export const ComponentContext = createContext({
 
@@ -27,13 +29,14 @@ const StyledComponent = styled('qapio-component')`
     }
 `;
 
-export const ResolveComponent = (value: any, library) => {
+export const ResolveComponent = (value: any, library, Fallback) => {
 
     if (!value) {
         return null;
     }
 
     if (typeof value == "string") {
+        console.log(value)
         return <StyledComponent path={value}></StyledComponent>
     }
 
@@ -46,14 +49,20 @@ export const ResolveComponent = (value: any, library) => {
         return <ResourceEditor key={JSON.stringify(value.props)} {...value.props}/>
     }
 
+    if (value.type == "Story") {
+        return <Story {...value.props}/>
+    }
+
+    if (value.type == "Steps") {
+        return <Steps {...value.props}/>
+    }
 
     if (value.type == "") {
         return <div>The s</div>
     }
 
-
-    if (typeof value == "object") {
-        return <div>{JSON.stringify(value)}</div>
+    if (typeof value == "object" && Fallback) {
+        return <Fallback {...value}/>
     }
 
     return value;

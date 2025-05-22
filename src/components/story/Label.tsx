@@ -1,0 +1,1 @@
+export const Label = ({value}) => <div>{value}</div>

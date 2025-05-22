@@ -1,0 +1,4 @@
+amends "package://github.com/qapio/qap/releases/download/qapio/qapio@1.0.78#/Qap.pkl"
+
+Id = "TheBasics"
+Ui = "TheBasicsStory.tsx"
