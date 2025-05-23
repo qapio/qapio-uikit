@@ -72,12 +72,12 @@ type Aux = {
 }
 
 const RenderUtils = ({setRightVisible, aux}) => {
-    return <div className="w-full h-full">
+    return <div className="w-full h-full overflow-auto custom-scrollbar">
         {aux.utilities}
     </div>;
 }
 const RenderTerminal = (setBottomVisible: (value: (((prevState: boolean) => boolean) | boolean)) => void, bottomVisible: boolean, aux: Aux) => {
-    return <div className="w-full h-full bg-black text-white p-4">
+    return <div className="w-full h-full bg-black text-white p-4 overflow-auto custom-scrollbar">
         {aux.terminal}
     </div>;
 }
@@ -175,6 +175,7 @@ export const Content = ({data}) => {
                         vertical
                         defaultSizes={[75, 25]}
                         snap
+                        className={"splitViewContainer"}
                         onVisibleChange={(_, v) => setBottomVisible(v)}
                     >
                         {/* Main Editor Area */}

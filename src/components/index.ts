@@ -37,6 +37,8 @@ export { CollapsiblePanel } from "./collapsible-panel";
 export { CollapsibleBottomPanel } from "./collapsible-bottom-panel";
 export { AnimatedModal } from "./Modal";
 export { DataForm } from "./Form";
+export { CodeBlock } from "./CodeBlock";
 export * from "./ui/collapsible";
 export * from "./editor/CodeEditor";
 export * from "./file-system/FileSystem";
+export * from "./markdown/MarkdownViewer";

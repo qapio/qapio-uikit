@@ -1,5 +1,5 @@
-export const OneDarkProTheme = (monaco: any) => {
-    monaco.editor.defineTheme("OneDarkPro", {
+
+export const oneDarkProThemeDefinition = {
         base: "vs-dark",
         inherit: true,
         rules: [],
@@ -2191,7 +2191,7 @@ export const OneDarkProTheme = (monaco: any) => {
             "diffEditor.insertedTextBackground": "#00809b33",
             "dropdown.background": "#21252b",
             "dropdown.border": "#21252b",
-            "editor.background": "#0a0a0a",
+            "editor.background": "#171717",
             "editor.findMatchBackground": "#d19a6644",
             "editor.findMatchBorder": "#ffffff5a",
             "editor.findMatchHighlightBackground": "#ffffff22",
@@ -2318,6 +2318,21 @@ export const OneDarkProTheme = (monaco: any) => {
             "tree.indentGuidesStroke": "#ffffff1d",
             "walkThrough.embeddedEditorBackground": "#2e3440",
             "welcomePage.buttonHoverBackground": "#404754",
+        }
+};
+
+export const OneDarkProTheme = (monaco: any) => {
+    monaco.editor.defineTheme("OneDarkPro", oneDarkProThemeDefinition);
+};
+
+
+export const CodeBlockTheme = (monaco) => {
+    monaco.editor.defineTheme("CodeBlockTheme", {
+        ...oneDarkProThemeDefinition,
+        colors: {
+            ...oneDarkProThemeDefinition.colors,
+            "editor.background": "#61afef",
+            "focusBorder": "#00000000",
         },
     });
 };

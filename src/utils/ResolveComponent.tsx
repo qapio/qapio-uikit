@@ -1,9 +1,10 @@
 import {QapFileSystem, ResourceEditor} from "@/components";
 import { createContext, useContext } from 'react';
-
+import * as React from "react";
 import styled from 'styled-components';
 import {Story} from "@/components/story/Story";
 import {Steps} from "@/components/story/Steps";
+import {Link} from "react-router-dom";
 
 export const ComponentContext = createContext({
 
@@ -29,14 +30,17 @@ const StyledComponent = styled('qapio-component')`
     }
 `;
 
-export const ResolveComponent = (value: any, library, Fallback) => {
+export const ResolveComponent = (value: any, library, Fallback?) => {
 
     if (!value) {
         return null;
     }
 
+    if (React.isValidElement(value)) {
+        return value;
+    }
+
     if (typeof value == "string") {
-        console.log(value)
         return <StyledComponent path={value}></StyledComponent>
     }
 
@@ -58,7 +62,7 @@ export const ResolveComponent = (value: any, library, Fallback) => {
     }
 
     if (value.type == "") {
-        return <div>The s</div>
+        return <Link className={"w-full"} to={"/DataApi/Ui"}>BIFF</Link>
     }
 
     if (typeof value == "object" && Fallback) {

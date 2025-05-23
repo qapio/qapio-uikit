@@ -114,6 +114,12 @@
     --color-sidebar-ring: var(--sidebar-ring);
 }
 
+
+html {
+    background: var(--background);
+}
+
+
 .active {
     background: var(--sidebar-primary);
 }
@@ -361,7 +367,7 @@
 
 .bottomPane,
 .rightPane {
-    transition: all 0.15s ease-in-out;
+    transition: width 0.15s ease-in-out;
     will-change: width;
 }
 .splitViewContainer.split-view-sash-dragging .bottomPane,
@@ -369,4 +375,5 @@
     /* disable animation while sash dragging */
     transition: none;
 }
+
 
