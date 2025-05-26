@@ -6,7 +6,8 @@ import {useStream} from "@qapio/qapi-reactjs";
 
 export const TheBasics = () => {
 
-    const code = useStream((qapi) => qapi.Source("Source.Tick(10000)"))
+    const code = JSON.stringify(useStream((qapi) => qapi.Source("Qap1.Identify()")), null, 2)
+
 
     return (
         <Steps
@@ -14,7 +15,7 @@ export const TheBasics = () => {
             subtitle={"Let's set up an interactive streaming pipeline with QAPI."}
             text={""}
             items={[
-                <CodeBlock value={`heisann ${code}`} language={"javascript"}
+                <CodeBlock value={code} language={"javascript"}
                 />,
                 <Step title={"Say Hello 👋 - Let's start by Pinging our Qaps (nodes) using Qapi"}
                       text={"Each DSL snippet queries a Qap via QAPI, retrieving its unique identifier. This helps us understand which nodes are available to us."}

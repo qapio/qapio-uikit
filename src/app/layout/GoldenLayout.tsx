@@ -153,7 +153,7 @@ export const Content = ({data}) => {
     return(
     <SidebarProvider>
         <AppSidebar data={data} variant="inset"/>
-        <SidebarInset className="flex flex-col !h-[calc(100vh_-_var(--spacing)*4)] overflow-hidden">
+        <SidebarInset className="flex flex-col !h-[calc(100vh_-_var(--spacing)*4)] border-1 overflow-hidden">
 
             <SiteHeader className="flex-shrink-0" rightContent={
                 <RightContent
