@@ -1,23 +1,21 @@
 import * as React from "react";
 import {ResourceEditor} from "@/components";
-import {useStream} from "@qapio/qapi-reactjs";
 import {useState} from "react"
+import {connect} from "@qapio/qapi-reactjs";
 import { File, Clipboard } from "lucide-react"
 
 
-export const QapFileSystem = ({endpoint}) => {
+const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected}) => {
 
-    const files = useStream((qapi) => qapi.Source(`${endpoint}.FileSystem.Enumerate()`));
-
-    const [selectedFile, setSelectedFile] = useState()
+    // const [selectedFile, setSelectedFile] = useState()
 
     React.useEffect(() => {
-        if (files && files.length > 0 && !selectedFile) {
-            setSelectedFile(files[0].path);
+        if (items && items.length > 0 && !selected) {
+            setSelectedFile(items[0].path);
         }
-    }, [files, selectedFile]);
+    }, [items, selected]);
 
-    if (!files) {
+    if (!items) {
         return;
     }
 
@@ -43,10 +41,10 @@ export const QapFileSystem = ({endpoint}) => {
                         <div data-sidebar="group" className="relative flex w-full min-w-0 flex-col p-2">
                             <div data-sidebar="group-content" className="w-full text-sm">
                                 <ul data-sidebar="menu" className="flex w-full min-w-0 flex-col gap-1">
-                                    {files.map((file, idx) => {
+                                    {items.map((file, idx) => {
                                         return <li key={idx} data-sidebar="menu-item" className="group/menu-item relative">
-                                            <button data-sidebar="menu-button" data-size="default" data-active={selectedFile === file.path}
-                                                    onClick={() => setSelectedFile(file.path)}
+                                            <button data-sidebar="menu-button" data-size="default" data-active={selected === file.path}
+                                                    onClick={() => setSelectedFile({path: file.path})}
                                                     className="peer/menu-button flex items-start w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&amp;>span:last-child]:truncate [&amp;>svg]:size-4 [&amp;>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8 text-sm">
                                                 <File className="size-4 shrink-0" />
                                                 {file.path}
@@ -67,7 +65,7 @@ export const QapFileSystem = ({endpoint}) => {
                 <div
                     className="flex h-12 shrink-0 items-center gap-2 border-b border-zinc-700 bg-background px-4 text-sm font-medium">
                     <File className="size-4 shrink-0" />
-                    {selectedFile}
+                    {selected}
                     {/*<div className="ml-auto flex items-center gap-2">
                         <button
                             className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-7 w-7 shrink-0 rounded-lg p-0 hover:bg-zinc-700 hover:text-white focus:bg-zinc-700 focus:text-white focus-visible:bg-zinc-700 focus-visible:text-white active:bg-zinc-700 active:text-white data-[active=true]:bg-zinc-700 data-[active=true]:text-white [&>svg]:size-3">
@@ -76,10 +74,14 @@ export const QapFileSystem = ({endpoint}) => {
                     </div>*/}
                 </div>
                 <div className={"flex grow-1"}>
-                   {selectedFile && <ResourceEditor key={selectedFile} endpoint={endpoint} path={selectedFile}/>}
+                   {selected && <ResourceEditor key={selected} endpoint={endpoint} path={selected}/>}
                 </div>
             </div>
         </div>
 
     );
 }
+
+export const QapFileSystem = connect((qapi, {endpoint}) => qapi.Source(`QapFileSystem.Qapi.FileSystem({endpoint: '${endpoint}'})`), (disp) => ({
+    setSelectedFile: disp('setSelected')
+}))(QapFileSystemComponent)

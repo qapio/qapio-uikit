@@ -2,7 +2,7 @@ import { ResolveComponent } from "@/utils/ResolveComponent";
 
 export const Step = ({ title, text, content }) => {
     return (
-        <div className="mt-8 w-full break-words">
+        <div className="mt-16 w-full ">
             <h2 className="font-heading mt-16 scroll-m-20 border-b pb-4 text-xl font-semibold tracking-tight first:mt-0 break-words whitespace-normal w-full">
                 {title}
             </h2>
@@ -18,7 +18,7 @@ export const Step = ({ title, text, content }) => {
 
 export const Steps = ({ title, subtitle, text, items }) => {
     return (
-        <div className="space-y-2 w-full max-w-full break-words">
+        <div className="space-y-2 w-full ">
             <h1 className="scroll-m-20 text-3xl font-bold tracking-tight break-words whitespace-normal w-full">
                 {title}
             </h1>

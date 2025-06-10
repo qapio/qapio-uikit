@@ -96,8 +96,8 @@ export const BrowserWindow = React.memo((
             id="browser-window"
             className="flex h-full dark rounded-xl min-w-full max-w-full"
         >
-            <div className="flex flex-col h-full w-full rounded-xl">
-                <div className="rounded-t-xl dark:bg-slate-700 ">
+            <div className="flex flex-col h-full w-full rounded-xl border overflow-hidden">
+                <div className=" dark:bg-muted ">
                     {!hideAddressBar && <div className="py-2.5 grid items-center px-4 gap-6 grid-cols-[2.625rem_1fr_2.625rem] h-12">
                         <div className="flex items-center">
                             <div className="w-2.5 h-2.5 rounded-full bg-rose-500"></div>
@@ -107,7 +107,7 @@ export const BrowserWindow = React.memo((
                             </div>
                         </div>
                         <div
-                            className="px-3 w-full gap-2 relative overflow-hidden rounded-md font-medium text-xs leading-6 py-1 flex items-center justify-center ring-1 ring-inset ring-slate-900/5 mx-auto dark:bg-slate-800 dark:text-gray-400">
+                            className="px-3 w-full gap-2 relative overflow-hidden rounded-md font-medium text-xs leading-6 py-1 flex items-center justify-center ring-1 ring-inset ring-slate-900/5 mx-auto dark:bg-background dark:text-gray-400">
                             {/*<LockIcon />*/}
                             {url}
                             {copyButtonValue && (
@@ -139,7 +139,7 @@ export const BrowserWindow = React.memo((
 
                 <div className={`${
                     hideAddressBar ? 'rounded-t-xl' : ''
-                } border-t border-slate-900/50 relative rounded-b-xl pb-0 dark:bg-slate-800 flex h-full w-full`}
+                } border-t border-muted/50 relative rounded-b-xl pb-0 dark:bg-muted flex h-full w-full`}
                 >
                     {items.find((item) => item.id === activeTab)?.content || children}
                     <div

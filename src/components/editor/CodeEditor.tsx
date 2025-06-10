@@ -1,25 +1,27 @@
 import Editor from "@monaco-editor/react";
 import { OneDarkProTheme, CodeBlockTheme } from "./OneDarkProTheme.ts";
 import {connect, combineLatestObject} from "@qapio/qapi-reactjs";
-import {codeBlockOptions} from "@/components/editor/CodeBlockOptions";
+import {codeBlockOptions} from "@/components/CodeBlock.tsx";
 
 
 
-export const CodeEditor = ({ value, file, height, options, theme, language}) => {
+export const CodeEditor = ({ value, path: file, height, options, theme, language, onChange}) => {
 
     const path = file?.endsWith(".tsx") ? "file.jsx" : file;
 
     return value && <Editor
         options={options}
         height={height ?? "100%"}
+
         theme={theme ?? "OneDarkPro"}
         beforeMount={(monaco) => {
             OneDarkProTheme(monaco);
         }}
+        // onChange={onChange}
         language={language}
-        path={`${Math.random()}${path}`}
-        value={typeof value == "string" ? value : value.toString()}
-        onMount={(editor, monaco) => {
+        path={path}
+        value={value}
+        /*onMount={(editor, monaco) => {
             const container = editor.getContainerDomNode();
             const resize = () => {
                 const contentHeight = editor.getContentHeight();
@@ -27,18 +29,15 @@ export const CodeEditor = ({ value, file, height, options, theme, language}) => 
                 editor.layout(); // ✅ Recalculate layout after height change
             };
 
-            resize(); // Initial resize
+            resize(); // Initial resize*!/
             editor.onDidChangeModelContent(resize); // Resize on content change
-        }}
+        }}*/
     />;
 };
 
-export const ResourceEditor =  connect((qapi, {path, endpoint}) => {
-    return combineLatestObject({value: qapi.Source(`${endpoint}.FileSystem.ReadAllText('${path}')`), file: path})
+export const ResourceEditor =  connect((qapi, props) => {
+    return qapi.Source(`ResourceEditor.Qapi.EditorModel(${JSON.stringify(props)})`)
 
-})(CodeEditor)
+}, (disp) =>  ({onChange: disp('updateValue')}))(CodeEditor)
 
-export const CodeBlockEditor =  connect((qapi, {path, endpoint}) => {
-    return combineLatestObject({value: qapi.Source(`${endpoint}.FileSystem.ReadAllText('${path}')`), file: path, options: codeBlockOptions})
 
-})(CodeEditor)

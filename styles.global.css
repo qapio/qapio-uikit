@@ -367,8 +367,8 @@ html {
 
 .bottomPane,
 .rightPane {
-    transition: width 0.15s ease-in-out;
-    will-change: width;
+/*    transition: all 0.15s ease-in-out;
+    will-change: width;*/
 }
 .splitViewContainer.split-view-sash-dragging .bottomPane,
 .splitViewContainer.split-view-sash-dragging .rightPane {

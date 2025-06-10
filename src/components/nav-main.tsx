@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/sidebar"
 import {NavLink, Link} from "react-router-dom";
 import {connect} from "@qapio/qapi-reactjs";
+import {c} from "../../../../../../../.cache/deno/npm/registry.npmjs.org/framer-motion/12.4.1/dist/types.d-6pKw1mTI";
 
 
 const SubMenu = connect((qapi, {item}) => {
@@ -37,12 +38,12 @@ const SubMenu = connect((qapi, {item}) => {
       <SidebarMenuButton tooltip={item.title}>
         {item.icon && <item.icon />}
         <Link className={"w-full"} to={item.url}>{item.title}</Link>
-        {item.items && <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />}
+        {item.children && <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />}
       </SidebarMenuButton>
     </CollapsibleTrigger>
     <CollapsibleContent>
       <SidebarMenuSub>
-        {Array.isArray(item.items) && item.items?.map((subItem) => (
+        {Array.isArray(item.children) && item.children?.map((subItem) => (
             <SidebarMenuSubItem key={subItem.title}>
               <SidebarMenuSubButton asChild>
                 <NavLink to={item.url+"/"+subItem.url}>{subItem.title}</NavLink>
@@ -56,7 +57,7 @@ const SubMenu = connect((qapi, {item}) => {
 })
 export function NavMain({
     title,
-  items,
+  children,
 }: {
   title: string,
   items: {
@@ -64,7 +65,7 @@ export function NavMain({
     url: string
     icon?: LucideIcon
     isActive?: boolean
-    items?: {
+    children?: {
       title: string
       url: string
     }[]
@@ -72,13 +73,13 @@ export function NavMain({
 }) {
 
 
-
+  console.log(children, "BIFF")
 
   return (
     <SidebarGroup>
       {title && <SidebarGroupLabel>{title}</SidebarGroupLabel>}
       <SidebarMenu>
-        {items.map((item, idx) => {
+        {children.map((item, idx) => {
 
           return (
               <Collapsible

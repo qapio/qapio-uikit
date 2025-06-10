@@ -40,22 +40,22 @@ export const Layout = ({data}) => {
 
     const componentMap = useContext(ComponentContext);
 
-    if (!data) {
-        return
-    }
-
     return (
        <div className={"dark"}><MemoryRouter initialEntries={[currentPath]}>
             <RouterListener/>
             <Routes>
-                <Route path={"/"} element={<Content data={data}/>}>
-                    {data.navMain.items.map((t, idx) => {
+                <Route
+                    path={"/"}
+                    element={
+                    <Content data={data}/>
+                }>
+                    {data.navMain.children.map((t, idx) => {
 
                         const clone = {...t};
 
                         return <Route key={idx} path={clone.url}>
                             <Route index={true} element={ResolveComponent(clone.component, componentMap)}/>
-                            {clone.items?.map((r, idx) => {
+                            {clone.children?.map((r, idx) => {
                                 return <Route key={idx} path={r.url} element={ResolveComponent(r.component, componentMap)}/>
                             })}
                         </Route>
@@ -137,7 +137,7 @@ export const Content = ({data}) => {
     useEffect(() => {
         // console.log('Navigation occurred at sidebar:', location.pathname);
 
-        const value = pluckFromTree(data.navMain.items, location.pathname, "url");
+        const value = pluckFromTree(data.navMain.children, location.pathname, "url");
 
         setAux({
             utilities: ResolveComponent(value?.panels?.utilities, componentMap),

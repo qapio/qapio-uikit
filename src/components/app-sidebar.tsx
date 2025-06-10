@@ -27,8 +27,8 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
         {data.teams &&  <SidebarHeader><TeamSwitcher teams={data.teams} />  </SidebarHeader>}
 
       <SidebarContent>
-        {data.navMain?.items && <NavMain title={data.navMain.title} items={data.navMain.items} />}
-        {data.navSecondary?.items && <NavProjects title={data.navSecondary.title} items={data.navSecondary.items} />}
+        {data?.navMain?.children && <NavMain title={data.navMain.title} children={data.navMain.children} />}
+        {data?.navSecondary?.children && <NavProjects title={data.navSecondary.title} children={data.navSecondary.children} />}
       </SidebarContent>
 
         {data.user && <SidebarFooter><NavUser user={data.user} /> </SidebarFooter>}
