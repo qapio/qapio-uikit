@@ -11,9 +11,10 @@ export const FileSystem = types.model({
 
 }).actions((self) => ({
     afterCreate: () => {
-        self.items = [{path: "Function.py"}, {path: "Qap1.pkl"}];
+        self.items = [{path: "Function.ts"}, {path: "Qap1.pkl"}];
     },
     setSelected: ({path}) => {
+        console.log("DØDØD", path)
         self.selected = path;
     }
 }))

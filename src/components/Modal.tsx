@@ -8,14 +8,14 @@ import {
 } from "@/components/ui/animated-modal.tsx";
 
 
-export function AnimatedModal({triggerClass, triggerContent="Open", content, footerContent}) {
+export function AnimatedModal({triggerClass, triggerContent="Open", containerClass, contentClass, content, footerContent}) {
     return (
         <Modal>
             <ModalTrigger className={triggerClass}>
                 {triggerContent}
             </ModalTrigger>
-            <ModalBody>
-                {content && <ModalContent>
+            <ModalBody className={containerClass}>
+                {content && <ModalContent className={contentClass}>
                     {content}
                 </ModalContent>}
 

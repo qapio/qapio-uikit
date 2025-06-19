@@ -119,10 +119,10 @@ html {
     background: var(--background);
 }
 
-
+/*
 .active {
     background: var(--sidebar-primary);
-}
+}*/
 
 .scrollbar-none {
     scrollbar-width: none;

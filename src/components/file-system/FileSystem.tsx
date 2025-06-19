@@ -3,21 +3,26 @@ import {ResourceEditor} from "@/components";
 import {useState} from "react"
 import {connect} from "@qapio/qapi-reactjs";
 import { File, Clipboard } from "lucide-react"
+import {map} from "rxjs";
 
 
 const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected}) => {
 
-    // const [selectedFile, setSelectedFile] = useState()
 
-    React.useEffect(() => {
-        if (items && items.length > 0 && !selected) {
-            setSelectedFile(items[0].path);
-        }
-    }, [items, selected]);
+    console.log(items, selected, 11111111111111111)
 
     if (!items) {
         return;
     }
+
+    // select first item in the list
+    React.useEffect(() => {
+        if (items.length > 0 && !selected) {
+            setSelectedFile({ path: items[0].path });
+        }
+    }, [items, selected, setSelectedFile]);
+
+    const Comp = ResourceEditor();
 
     return (
         <div
@@ -74,7 +79,7 @@ const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected})
                     </div>*/}
                 </div>
                 <div className={"flex grow-1"}>
-                   {selected && <ResourceEditor key={selected} endpoint={endpoint} path={selected}/>}
+                   {selected && <Comp endpoint={endpoint} path={selected}/>}
                 </div>
             </div>
         </div>
@@ -82,6 +87,8 @@ const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected})
     );
 }
 
-export const QapFileSystem = connect((qapi, {endpoint}) => qapi.Source(`QapFileSystem.Qapi.FileSystem({endpoint: '${endpoint}'})`), (disp) => ({
-    setSelectedFile: disp('setSelected')
+export const QapFileSystem = connect((qapi, {endpoint}) => qapi.Source(`QapFileSystem.Qapi.FileSystem({endpoint: '${endpoint}'})`).pipe(map((t) => {
+    return t;
+})), (disp) => ({
+    setSelectedFile: disp.Dispatch('setSelected')
 }))(QapFileSystemComponent)

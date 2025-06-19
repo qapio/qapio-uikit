@@ -7,6 +7,7 @@ import {codeBlockOptions} from "@/components/CodeBlock.tsx";
 
 export const CodeEditor = ({ value, path: file, height, options, theme, language, onChange}) => {
 
+    console.log(value, file, height, options, theme, language)
     const path = file?.endsWith(".tsx") ? "file.jsx" : file;
 
     return value && <Editor
@@ -35,9 +36,10 @@ export const CodeEditor = ({ value, path: file, height, options, theme, language
     />;
 };
 
-export const ResourceEditor =  connect((qapi, props) => {
+export const ResourceEditor =  () => connect((qapi, props) => {
+
     return qapi.Source(`ResourceEditor.Qapi.EditorModel(${JSON.stringify(props)})`)
 
-}, (disp) =>  ({onChange: disp('updateValue')}))(CodeEditor)
+}, (disp) =>  ({onChange: disp.Dispatch('updateValue')}))(CodeEditor)
 
 
