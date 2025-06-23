@@ -4,9 +4,10 @@ import rehypeRaw from "rehype-raw";
 export const MarkdownViewer = ({ text }) => {
 
     return (
-        <Markdown rehypePlugins={[rehypeRaw]}
-                  className={"w-full"}>
-            {text}
-        </Markdown>
+        <div className="prose prose-invert max-w-none">
+            <Markdown rehypePlugins={[rehypeRaw]}>
+                {text}
+            </Markdown>
+        </div>
     );
 }

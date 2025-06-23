@@ -9,7 +9,6 @@ import {map} from "rxjs";
 const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected}) => {
 
 
-    console.log(items, selected, 11111111111111111)
 
     if (!items) {
         return;
@@ -21,8 +20,6 @@ const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected})
             setSelectedFile({ path: items[0].path });
         }
     }, [items, selected, setSelectedFile]);
-
-    const Comp = ResourceEditor();
 
     return (
         <div
@@ -79,7 +76,7 @@ const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected})
                     </div>*/}
                 </div>
                 <div className={"flex grow-1"}>
-                   {selected && <Comp endpoint={endpoint} path={selected}/>}
+                   {selected && <ResourceEditor endpoint={endpoint} path={selected}/>}
                 </div>
             </div>
         </div>

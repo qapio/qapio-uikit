@@ -107,7 +107,7 @@ export const BrowserWindow = React.memo((
                             </div>
                         </div>
                         <div
-                            className="px-3 w-full gap-2 relative overflow-hidden rounded-md font-medium text-xs leading-6 py-1 flex items-center justify-center ring-1 ring-inset ring-slate-900/5 mx-auto dark:bg-background dark:text-gray-400">
+                            className="px-3 w-full gap-2 relative rounded-md font-medium text-xs leading-6 py-1 flex items-center justify-center ring-1 ring-inset ring-slate-900/5 mx-auto dark:bg-background dark:text-gray-400">
                             {/*<LockIcon />*/}
                             {url}
                             {copyButtonValue && (
