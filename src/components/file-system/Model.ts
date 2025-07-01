@@ -11,10 +11,10 @@ export const FileSystem = types.model({
 
 }).actions((self) => ({
     afterCreate: () => {
-        self.items = [{path: "Function.ts"}];
+        self.items = [{path: "MyGui.pkl"},{path: "Index.tsx"}];
     },
     setSelected: ({path}) => {
-        console.log("DØDØD", path)
+        console.log("path", path)
         self.selected = path;
     }
 }))

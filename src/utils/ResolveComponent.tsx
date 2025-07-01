@@ -30,7 +30,14 @@ const StyledComponent = styled('qapio-component')`
     }
 `;
 
-export const ResolveComponent = (value: any, library, Fallback?) => {
+export const ResolveComponent = (value: any, library, Fallback?, props = {}) => {
+
+
+    if (typeof value == "function") {
+        const Component = value;
+        return <Component {...props}/>
+        return value(props);
+    }
 
     if (!value) {
         return null;
@@ -46,7 +53,7 @@ export const ResolveComponent = (value: any, library, Fallback?) => {
 
     if (library && library[value.type]) {
         const Component = library[value.type];
-        return <Component key={JSON.stringify(value.props)} {...value.props}/>
+        return <Component key={JSON.stringify(value.props)} {...value.props} {...props}/>
     }
 
     if (value.type == "ResourceEditor") {

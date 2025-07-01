@@ -21,6 +21,7 @@ const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected})
         }
     }, [items, selected, setSelectedFile]);
 
+    console.log(5222222222222, items, endpoint, selected)
     return (
         <div
             className=" flex h-full overflow-hidden bg-background text-white group-data-[view=preview]/block-view-wrapper:hidden"
@@ -76,7 +77,7 @@ const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected})
                     </div>*/}
                 </div>
                 <div className={"flex grow-1"}>
-                   {selected && <ResourceEditor endpoint={endpoint} path={selected}/>}
+                   {selected && <ResourceEditor key={selected} endpoint={endpoint} path={selected}/>}
                 </div>
             </div>
         </div>
@@ -85,6 +86,7 @@ const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected})
 }
 
 export const QapFileSystem = connect((qapi, {endpoint}) => qapi.Source(`QapFileSystem.Qapi.FileSystem({endpoint: '${endpoint}'})`).pipe(map((t) => {
+    console.log("QAPFILE")
     return t;
 })), (disp) => ({
     setSelectedFile: disp.Dispatch('setSelected')
