@@ -8,8 +8,7 @@ import {map} from "rxjs";
 
 const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected}) => {
 
-
-
+    console.log(endpoint, items, "DHGD")
     if (!items) {
         return;
     }
@@ -21,7 +20,7 @@ const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected})
         }
     }, [items, selected, setSelectedFile]);
 
-    console.log(5222222222222, items, endpoint, selected)
+    console.log(522222222, items, endpoint, selected)
     return (
         <div
             className=" flex h-full overflow-hidden bg-background text-white group-data-[view=preview]/block-view-wrapper:hidden"
@@ -85,7 +84,7 @@ const QapFileSystemComponent = ({endpoint, items=[], setSelectedFile, selected})
     );
 }
 
-export const QapFileSystem = connect((qapi, {endpoint}) => qapi.Source(`QapFileSystem.Qapi.FileSystem({endpoint: '${endpoint}'})`).pipe(map((t) => {
+export const QapFileSystem = () => connect((qapi, {endpoint}) => qapi.Source(`QapFileSystem.Qapi.FileSystem({endpoint: '${endpoint}'})`).pipe(map((t) => {
     console.log("QAPFILE")
     return t;
 })), (disp) => ({
