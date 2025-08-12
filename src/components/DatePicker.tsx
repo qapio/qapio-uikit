@@ -10,7 +10,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-export const DatePicker = ({label, onSelect, defaultDate})  => {
+export const DatePicker = ({label, onSelect, defaultDate, locale="en-US", dateStyle="long"})  => {
 
     const [open, setOpen] = React.useState(false)
     const [date, setDate] = React.useState<Date | undefined>(defaultDate)
@@ -31,7 +31,7 @@ export const DatePicker = ({label, onSelect, defaultDate})  => {
                         id="date"
                         className="w-48 justify-between font-normal"
                     >
-                        {date ? date.toLocaleDateString('nb', { dateStyle: 'full' }) : "Select date"}
+                        {date ? date.toLocaleDateString(locale, { dateStyle: dateStyle }) : "Select date"}
                         <ChevronDownIcon />
                     </Button>
                 </PopoverTrigger>

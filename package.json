@@ -64,6 +64,7 @@
     "rehype-raw": "^7.0.0",
     "rxjs": "^7.8.2",
     "sonner": "^2.0.3",
+    "styled-css-grid": "^1.3.0",
     "styled-components": "^6.1.18",
     "tailwind-merge": "^3.2.0",
     "tw-animate-css": "^1.2.8",
