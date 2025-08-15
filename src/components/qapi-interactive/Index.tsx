@@ -12,7 +12,7 @@ import {useContext, useState, isValidElement} from "react";
 import * as React from "react";
 import { Grid, Cell } from "styled-css-grid";
 
-export const Component = ({expression, value, variables, templates, execute, properties = {}, componentMap = {}, renderer = () => <div>fhj</div>} : InteractiveQapiProps) => {
+export const Component = ({expression, value, variables, templates, execute, properties = {}, componentMap = {}, propertyMap = {}, renderer = () => <div>fhj</div>} : InteractiveQapiProps) => {
 
 
     if (Object.keys(componentMap).length == 0) {
@@ -31,7 +31,7 @@ export const Component = ({expression, value, variables, templates, execute, pro
         }
 
         return {Component, Key: key};
-    }).map((t) => [t.Key, t.Component])), execute);
+    }).filter((t) => t).map((t) => [t.Key, t.Component])), execute, propertyMap);
 }
 
 
@@ -52,13 +52,15 @@ export const Controls = connect((qapi, {template, properties, auto}) => {
 }, (qapi, {properties}) => {
 
     const componentMap = {};
+    const propertyMap = {};
 
     Object.entries(properties).forEach(([key, value]) => {
         const action =  (value) => qapi.Dispatch("setProperty")({key, value});
         componentMap[key] = {...value, action};
+        propertyMap[key] = {...value, onChange: action};
     });
 
-    return {componentMap: of(componentMap), value: of(qapi.Source('value')), expression: of(qapi.Source('expression').pipe(map((t) => {
+    return {componentMap: of(componentMap), propertyMap: of(propertyMap), value: of(qapi.Source('value')), expression: of(qapi.Source('expression').pipe(map((t) => {
             console.log(t);
             return t;
         }))), variables: of(qapi.Source('variables')), templates: of(qapi.Source('subExpressions')), execute: () => qapi.Dispatch("execute")(1)};
@@ -101,15 +103,14 @@ export const TitleComponent = ({title, text}) => (
     </div>
 )
 
-export const CSSGridControlSystem = ({config, options}: {config: InteractiveQapiProps, options: CSSGridProps}) => <ControlSystem config={config} renderer={(expression, value, components, execute) => {
+export const CSSGridControlSystem = ({config, options}: {config: InteractiveQapiProps, options: CSSGridProps}) => <ControlSystem config={config} renderer={(expression, value, components, execute, propertyMap) => {
 
     if (!options) {
         return;
     }
 
-    const opt = options(expression, value, execute);
+    const opt = options(expression, value, execute, propertyMap);
 
-    console.log("BIFF")
     return <div className={"p-4"}>
         <Grid columns={opt.columns} rows={opt.rows} areas={opt.areas} gap="20px">
             {Object.entries(opt?.content)?.map(([key, component], idx) => {

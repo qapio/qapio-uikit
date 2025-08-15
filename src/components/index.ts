@@ -44,7 +44,7 @@ export { DataForm } from "./Form";
 export { CodeBlock } from "./CodeBlock";
 export { BrowserWindow } from "./BrowserWindow";
 export { QrCode } from "./QrCode";
-export { Combobox } from "./Combobox";
+export { Combobox, Combobox2 } from "./Combobox";
 export { RemoteUi } from "./RemoteUi";
 export { CodeHighlighter } from "./CodeHighlighter";
 export {MultiSelect} from "./MultiSelect.tsx";

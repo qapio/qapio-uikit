@@ -41,7 +41,13 @@ export const DatePicker = ({label, onSelect, defaultDate, locale="en-US", dateSt
                         selected={date}
                         captionLayout="dropdown"
                         onSelect={(date) => {
-                            onSelect(date)
+
+                            onSelect(new Date(Date.UTC(
+                                date.getFullYear(),
+                                date.getMonth(),
+                                date.getDate()
+                            )).toISOString().split('.')[0] + 'Z');
+
                             setDate(date)
                             setOpen(false)
                         }}
