@@ -1,7 +1,7 @@
 import {types, IAnyType, getSnapshot, getEnv} from "npm:mobx-state-tree";
 import Mustache from "npm:mustache";
 import {ModelPropertiesDeclaration} from "npm:mobx-state-tree";
-import {interval, ReplaySubject, switchMap, map, combineLatest, of} from "npm:rxjs";
+import {interval, ReplaySubject, switchMap, map, combineLatest, debounceTime} from "npm:rxjs";
 
 const TypeModel = (typeName: string, props: ModelPropertiesDeclaration, typeFactory: (node) => IAnyType) => {
     return types.model({
@@ -33,7 +33,7 @@ const StringType = TypeModel("string", {
 
 const NumberType = TypeModel("number", {
     default: types.maybe(types.number)
-}, (model) => model.default || types.number);
+}, (model) => model.default ?? types.number);
 
 const BooleanType = TypeModel("boolean", {}, () => types.boolean);
 
@@ -48,7 +48,8 @@ export const QapiInteractive = types.model({
     initialSnapshot: types.frozen({}),
     templates: types.map(types.string),
     triggers: types.array(types.string),
-    auto: false
+    autorun: false,
+    debounceTime: 200
 }).volatile((self) => {
     return {
         instance: null,
@@ -58,7 +59,6 @@ export const QapiInteractive = types.model({
 
     return {
         afterCreate() {
-            console.log("helkkklos")
             const props = {};
 
             self.properties.forEach((value, key) => {
@@ -77,7 +77,6 @@ export const QapiInteractive = types.model({
                     properties.forEach((value, key) => {
                         actions[`set${key}`] = (t) => {
                             try {
-                                console.log(t)
                                 self[key] = t
                             } catch (e) {
                                 console.log(e);
@@ -103,8 +102,6 @@ export const QapiInteractive = types.model({
 
                                });*/
 
-                            console.log(data);
-
                             return Mustache.render(template, data);
 
                         }
@@ -118,9 +115,8 @@ export const QapiInteractive = types.model({
                         }*/
 
             self.instance = model.create(self.initialSnapshot);
-            console.log("FIkkkRSkT", self.instance.render());
 
-            if (self.auto) {
+            if (self.autorun) {
                 self.nextExpression.next(self.instance.render());
             }
         },
@@ -135,9 +131,8 @@ export const QapiInteractive = types.model({
             }
 
             func(value);
-            console.log("SEkjjjC", self.instance.render())
 
-            if (self.auto) {
+            if (self.autorun) {
                 self.nextExpression.next(self.instance.render());
             }
         }
@@ -146,8 +141,7 @@ export const QapiInteractive = types.model({
     return {
         value: () => {
 
-            return self.nextExpression.pipe(switchMap((t) => {
-                console.log(t);
+            return self.nextExpression.pipe(debounceTime(self.debounceTime), switchMap((t) => {
                 return getEnv(self).Source(t);
             }));
         },

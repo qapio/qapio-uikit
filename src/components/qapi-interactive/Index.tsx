@@ -15,7 +15,7 @@ import { Grid, Cell } from "styled-css-grid";
 export const Component = ({expression, value, variables, templates, execute, properties = {}, componentMap = {}, propertyMap = {}, renderer = () => <div>fhj</div>} : InteractiveQapiProps) => {
 
 
-    if (Object.keys(componentMap).length == 0) {
+    if (!componentMap || !value || !expression) {
         return null;
     }
 
@@ -31,7 +31,7 @@ export const Component = ({expression, value, variables, templates, execute, pro
         }
 
         return {Component, Key: key};
-    }).filter((t) => t).map((t) => [t.Key, t.Component])), execute, propertyMap);
+    }).filter((t) => t).map((t) => [t.Key, t.Component])), execute, propertyMap, variables);
 }
 
 
@@ -47,8 +47,8 @@ export type InteractiveQapiProps = {
     properties: {[key: string]: Property};
 }
 
-export const Controls = connect((qapi, {template, properties, auto}) => {
-    return qapi.Source(`QapiInteractive.Qapi.QapiInteractive(${JSON.stringify({template, properties, auto})})`);
+export const Controls = connect((qapi, props) => {
+    return qapi.Source(`QapiInteractive.Qapi.QapiInteractive(${JSON.stringify(props)})`);
 }, (qapi, {properties}) => {
 
     const componentMap = {};
@@ -61,7 +61,6 @@ export const Controls = connect((qapi, {template, properties, auto}) => {
     });
 
     return {componentMap: of(componentMap), propertyMap: of(propertyMap), value: of(qapi.Source('value')), expression: of(qapi.Source('expression').pipe(map((t) => {
-            console.log(t);
             return t;
         }))), variables: of(qapi.Source('variables')), templates: of(qapi.Source('subExpressions')), execute: () => qapi.Dispatch("execute")(1)};
 })(Component)
@@ -81,7 +80,6 @@ type CSSGridProps = {
 }
 
 export const ValueComponent = connect((_, {value}) => value.pipe(map((t) => {
-    console.log(t, 2);
     return ({value: t});
 })))(({value}) => {
 
@@ -103,13 +101,14 @@ export const TitleComponent = ({title, text}) => (
     </div>
 )
 
-export const CSSGridControlSystem = ({config, options}: {config: InteractiveQapiProps, options: CSSGridProps}) => <ControlSystem config={config} renderer={(expression, value, components, execute, propertyMap) => {
+export const CSSGridControlSystem = ({config, options}: {config: InteractiveQapiProps, options: CSSGridProps}) => <ControlSystem config={config} renderer={(expression, value, components, execute, propertyMap, variables) => {
+
 
     if (!options) {
         return;
     }
 
-    const opt = options(expression, value, execute, propertyMap);
+    const opt = options(expression, value, execute, propertyMap, variables);
 
     return <div className={"p-4"}>
         <Grid columns={opt.columns} rows={opt.rows} areas={opt.areas} gap="20px">
