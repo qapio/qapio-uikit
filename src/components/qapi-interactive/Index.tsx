@@ -7,10 +7,19 @@ import {
     DatePicker,
     Button
 } from "qapio-uikit";
-import {of, map, isObservable} from "rxjs";
+import {of, map, isObservable, distinctUntilChanged} from "rxjs";
 import {useContext, useState, isValidElement} from "react";
 import * as React from "react";
 import { Grid, Cell } from "styled-css-grid";
+
+const ConnectedCell = connect((_, {component, area}) => component.pipe(map((t) => ({component: t, area}))))(({component, area}) =>{
+    if (isObservable(component)) {
+        console.log(component);
+        return null;
+    }
+    console.log("AØAH!", component)
+    return <Cell key={area} area={area}>{component}</Cell>
+} );
 
 export const Component = ({expression, value, variables, templates, execute, properties = {}, componentMap = {}, propertyMap = {}, renderer = () => <div>fhj</div>} : InteractiveQapiProps) => {
 
@@ -54,15 +63,17 @@ export const Controls = connect((qapi, props) => {
     const componentMap = {};
     const propertyMap = {};
 
+    const variables = qapi.Source('variables');
+
     Object.entries(properties).forEach(([key, value]) => {
         const action =  (value) => qapi.Dispatch("setProperty")({key, value});
         componentMap[key] = {...value, action};
-        propertyMap[key] = {...value, onChange: action};
+        propertyMap[key] = {...value, onChange: action, value: variables.pipe(map((t) => t[key]), distinctUntilChanged())};
     });
 
     return {componentMap: of(componentMap), propertyMap: of(propertyMap), value: of(qapi.Source('value')), expression: of(qapi.Source('expression').pipe(map((t) => {
             return t;
-        }))), variables: of(qapi.Source('variables')), templates: of(qapi.Source('subExpressions')), execute: () => qapi.Dispatch("execute")(1)};
+        }))), variables: of(variables), templates: of(qapi.Source('subExpressions')), execute: () => qapi.Dispatch("execute")(1)};
 })(Component)
 
 
@@ -117,6 +128,11 @@ export const CSSGridControlSystem = ({config, options}: {config: InteractiveQapi
                     if (components[opt?.content[key]]) {
                         return <Cell area={key} key={idx}>{components[opt?.content[key]]}</Cell>;
                     }
+
+                    if (isObservable(component)) {
+                        return <ConnectedCell key={key} area={key} component={component}/>;
+                    }
+
                     return <Cell area={key} key={idx}>{component}</Cell>;
 
                 }

@@ -10,10 +10,26 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-export const DatePicker = ({label, onSelect, defaultDate, locale="en-US", dateStyle="long"})  => {
+export const DatePicker = ({label, onSelect, defaultDate, value, locale="en-US", dateStyle="long",})  => {
 
     const [open, setOpen] = React.useState(false)
-    const [date, setDate] = React.useState<Date | undefined>(defaultDate)
+
+
+    let date = value;
+    let setDate = (date) => {
+        onSelect && onSelect(new Date(Date.UTC(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate()
+        )).toISOString().split('.')[0] + 'Z');
+    };
+
+    if (!value) {
+        const [date1, setDate1] = React.useState<Date | undefined>(defaultDate);
+        date = date1;
+        setDate = setDate1;
+    }
+
 
     React.useEffect(() => {
         setDate(defaultDate)
