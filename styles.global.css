@@ -2,6 +2,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
+.bg-card {
+    opacity: 0.8;
+}
 :root {
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);

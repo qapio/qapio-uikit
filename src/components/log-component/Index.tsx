@@ -49,6 +49,7 @@ function styleLog(t: {
     const type = `${color(componentColor)} [${t.type}]${reset}`;
     const message = `${color(messageColor)} ${t.message}${reset}`;
     const exception = t.exception ? `\n${color(exceptionColor)}${t.exception}${reset}` : "";
+    return `${message} ${exception}`;
 
     return `${timestampAndLevel} ${endpoint} ${type} ${message} ${exception}`;
 }
