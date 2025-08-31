@@ -1,4 +1,4 @@
-import { LazyLog } from "@melloware/react-logviewer";
+import { LazyLog, ScrollFollow } from "@melloware/react-logviewer";
 import {interval} from "rxjs";
 
 const BaseStory = {
@@ -68,11 +68,16 @@ export const Index = ({endpoint}) => {
     })
 
     return  <div className={"h-screen"}>
+        <ScrollFollow
+            startFollowing={true}
+            render={({ follow, onScroll }) => (
+                <LazyLog follow={follow} onScroll={onScroll}  ref={ref} {...{
+                    ...BaseStory,
+                    external: true,
+                }} />
+            )}
+        />
 
-            <LazyLog  ref={ref} {...{
-                ...BaseStory,
-                external: true,
-            }} />
 
 
     </div>;
