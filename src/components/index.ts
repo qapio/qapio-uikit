@@ -1,6 +1,7 @@
 export { Button } from "./ui/button";
 export * from "./ui/avatar";
 export * from "./ui/animated-modal";
+export * from "./ui/animated-testimonials.tsx";
 export * from "./ui/animated-tooltip.tsx";
 export * from "./ui/background-ripple-effect";
 export * from "./ui/badge";
@@ -58,6 +59,7 @@ export {DualDatePicker} from "./DualDatePicker.tsx";
 export {Table2} from "./Table.tsx";
 export {Diagram} from "./diagram/Diagram.tsx";
 export {VideoFillText} from "./VideoFillText.tsx";
+export {Deck} from "./Deck.tsx";
 export * from "./ui/collapsible";
 export * from "./editor/CodeEditor";
 export * from "./file-system/FileSystem";
